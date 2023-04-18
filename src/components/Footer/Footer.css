@@ -1,0 +1,12 @@
+.footer {
+    display: flex;
+    background-color: #ffffff;
+    color: #484848;
+    height: 40px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  }
+  
+  .footer-text {
+    font-size: 70%;
+  }
+  
