@@ -2,9 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ArticleList.css';
 import Article from '../Article/Article';
+import { useQuery } from '@apollo/client';
+import { GET_ARTICLES } from '../apolloClient';
 
+const ArticleList = () => {
+  const { loading, error, data } = useQuery(GET_ARTICLES);
 
-const ArticleList = ({ articles }) => {
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  const articles = data.articles;
+
   return (
     <div className="article-container">
       <h2>Featured Articles</h2>
