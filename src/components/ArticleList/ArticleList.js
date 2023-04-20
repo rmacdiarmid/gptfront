@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './ArticleList.css';
 import Article from '../Article/Article';
 import { useQuery } from '@apollo/client';
-import { GET_ARTICLES } from '../apolloClient';
+import { GET_ARTICLES } from '../../apolloClient';
+
 
 const ArticleList = () => {
   const { loading, error, data } = useQuery(GET_ARTICLES);
@@ -28,17 +28,6 @@ const ArticleList = () => {
       </div>
     </div>
   );
-};
-
-ArticleList.propTypes = {
-  articles: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      preview: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
 };
 
 export default ArticleList;
