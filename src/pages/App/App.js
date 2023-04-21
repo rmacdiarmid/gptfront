@@ -6,6 +6,7 @@ import Hero from '../../components/Hero/Hero';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import './App.css';
 
+
 const App = () => {
   return (
     <>
