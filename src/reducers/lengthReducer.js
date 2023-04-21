@@ -1,6 +1,7 @@
-const lengthReducerr = (state = initialState, action) => {
-    // reducer logic
-  };
-  
-  export default promptReducer;
-  
+const initialState = {};
+
+const lengthReducer = (state = initialState, action) => {
+  // reducer logic
+};
+
+export default lengthReducer;

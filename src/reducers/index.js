@@ -1,3 +1,9 @@
-export { default as promptReducer } from './promptReducer';
-export { default as temperatureReducer } from './temperatureReducer';
-export { default as lengthReducer } from './lengthReducer';
+import promptReducer from './promptReducer';
+import temperatureReducer from './temperatureReducer';
+import lengthReducer from './lengthReducer';
+
+export {
+  promptReducer,
+  temperatureReducer,
+  lengthReducer,
+};
