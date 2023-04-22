@@ -1,4 +1,6 @@
-const initialState = {};
+const initialState = {
+  text: '',
+};
 
 const promptReducer = (state = initialState, action) => {
   switch (action.type) {
