@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSearchTerm } from '../../actions';
+import { setSearchTerm } from '../../actions/Actions';
 import './Hero.css';
 
 const Hero = () => {

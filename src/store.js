@@ -1,11 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { promptReducer, temperatureReducer, lengthReducer } from './reducers';
-
-const rootReducer = {
-  prompt: promptReducer,
-  temperature: temperatureReducer,
-  length: lengthReducer,
-};
+import rootReducer from './reducers';
 
 const store = configureStore({
   reducer: rootReducer,
