@@ -5,19 +5,22 @@ import MainContent from '../../components/MainContent/MainContent';
 import Hero from '../../components/Hero/Hero';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import './App.css';
+import { Provider } from 'react-redux';
+import store from '../../store';
+
 
 const App = () => {
   return (
-    <>
-      <Header />
-      <MainContent>
-        <Hero />
-        <div id="task-list-container">
-          <ArticleList />
-        </div>
-      </MainContent>
-      <Footer />
-    </>
+    <Provider store={store}>
+      <>
+        <Header />
+        <MainContent>
+          <Hero />
+            <ArticleList />
+        </MainContent>
+        <Footer />
+      </>
+    </Provider>
   );
 };
 

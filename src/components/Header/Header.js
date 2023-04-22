@@ -1,23 +1,51 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveNavLink } from '../../actions/Actions';
 import './Header.css';
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const activeNavLink = useSelector((state) => state.activeNavLink);
+
+  const handleNavLinkClick = (navLink) => {
+    dispatch(setActiveNavLink(navLink));
+  };
+
   return (
-  <header role="banner">
-      <div>
-        <nav className="container">
-          <div className="logo-container">
-            <img src="/static/images/logo.png" alt="Logo" className="logo" />
-          </div>
-          <ul className="navbar">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/task_list">Task List</a></li>
-            <li><a href="/article-generator">Article Generator</a></li>
-          </ul>
-        </nav>
-      </div>
+    <header role="banner">
+      {/* ... other elements */}
+      <ul className="navbar">
+        <li
+          className={activeNavLink === 'home' ? 'active' : ''}
+          onClick={() => handleNavLinkClick('home')}
+        >
+          <a href="/">Home</a>
+        </li>
+        <li
+          className={activeNavLink === 'about' ? 'active' : ''}
+          onClick={() => handleNavLinkClick('about')}
+        >
+          <a href="/about">About</a>
+        </li>
+        <li
+          className={activeNavLink === 'Contact' ? 'Contact' : ''}
+          onClick={() => handleNavLinkClick('contact')}
+        >
+          <a href="/contact">About</a>
+        </li>
+        <li
+          className={activeNavLink === 'Tast Lists' ? 'Task Lists' : ''}
+          onClick={() => handleNavLinkClick('task list')}
+        >
+          <a href="/task_lists">About</a>
+        </li>
+        <li
+          className={activeNavLink === 'Article Generator' ? 'Article Generator' : ''}
+          onClick={() => handleNavLinkClick('article generator')}
+        >
+          <a href="/article_generator">About</a>
+        </li>
+      </ul>
     </header>
   );
 };
