@@ -1,34 +1,39 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setSearchTerm } from '../../actions/Actions';
-import './Hero.css';
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
+import Hero from './Hero';
+import userEvent from '@testing-library/user-event';
 
-const Hero = () => {
-  const [inputValue, setInputValue] = useState('');
-  const dispatch = useDispatch();
+const mockStore = configureMockStore();
+const store = mockStore({
+  search: {
+    searchTerm: '',
+  },
+});
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    dispatch(setSearchTerm(inputValue));
-  };
+store.dispatch = jest.fn();
 
-  return (
-    <section className="hero">
-      <div className="hero-text-container">
-        <div className="search-container">
-          <form className="myform" onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search for articles..."
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            <button type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-};
+describe('Hero', () => {
+  test('updates input value and dispatches setSearchTerm action on form submit', () => {
+    render(
+      <Provider store={store}>
+        <Hero />
+      </Provider>
+    );
 
+    const searchTerm = 'Sample search term';
+    const searchInput = screen.getByPlaceholderText('Search articles...');
+    const searchButton = screen.getByRole('button', { name: /search/i });
+
+    userEvent.type(searchInput, searchTerm);
+    expect(searchInput).toHaveValue(searchTerm);
+
+    fireEvent.submit(searchButton);
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+  });
+});
+
+// Hero.js
 export default Hero;
+

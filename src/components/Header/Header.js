@@ -28,26 +28,26 @@ const Header = () => {
           <a href="/about">About</a>
         </li>
         <li
-          className={activeNavLink === 'Contact' ? 'Contact' : ''}
+          className={activeNavLink === 'contact' ? 'active' : ''}
           onClick={() => handleNavLinkClick('contact')}
         >
-          <a href="/contact">About</a>
+          <a href="/contact">Contact</a>
         </li>
         <li
-          className={activeNavLink === 'Tast Lists' ? 'Task Lists' : ''}
+          className={activeNavLink === 'task list' ? 'active' : ''}
           onClick={() => handleNavLinkClick('task list')}
         >
-          <a href="/task_lists">About</a>
+          <a href="/task_lists">Task List</a>
         </li>
         <li
-          className={activeNavLink === 'Article Generator' ? 'Article Generator' : ''}
+          className={activeNavLink === 'article generator' ? 'active' : ''}
           onClick={() => handleNavLinkClick('article generator')}
         >
-          <a href="/article_generator">About</a>
+          <a href="/article_generator">Article Generator</a>
         </li>
       </ul>
     </header>
-  );
+  );  
 };
 
 export default Header;

@@ -6,7 +6,11 @@ import Articles from '../Articles/Articles';
 
 const MainContent = ({ children }) => {
   // Access data from the Redux store
-  const someData = useSelector((state) => state.someReducer.someData);
+  const someData = useSelector((state) => state?.someReducer?.someData);
+
+  if (!someData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="main-content">
