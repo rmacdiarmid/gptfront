@@ -1,7 +1,11 @@
 const initialState = {};
 
 const promptReducer = (state = initialState, action) => {
-  // reducer logic
+  switch (action.type) {
+    // Add case statements for actions here
+    default:
+      return state;
+  }
 };
 
 export default promptReducer;
