@@ -11,6 +11,7 @@ const MainContent = ({ children }) => {
     </div>
   );
 };
+
 MainContent.propTypes = {
   children: PropTypes.node.isRequired,
 };

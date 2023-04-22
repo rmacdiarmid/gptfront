@@ -6,16 +6,15 @@ import Hero from '../../components/Hero/Hero';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import './App.css';
 
-
 const App = () => {
   return (
     <>
       <Header />
       <MainContent>
         <Hero />
-        <ArticleList /> {/* No need to pass the articles prop */}
-        {/* Task list container; populate this container using the data from your API */}
-        <div id="task-list-container" />
+        <div id="task-list-container">
+          <ArticleList />
+        </div>
       </MainContent>
       <Footer />
     </>
