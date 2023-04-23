@@ -1,6 +1,5 @@
-
-// useCleanImageName.js
-const useCleanImageName = (imageName) => {
+// src/utils/cleanImageName.js
+const cleanImageName = (imageName) => {
     const startIndex = imageName.lastIndexOf("/") + 1;
     const cleanName = imageName.substring(startIndex);
     console.log(startIndex)
@@ -9,4 +8,4 @@ const useCleanImageName = (imageName) => {
     return cleanName;
 };
 
-export default useCleanImageName;
+export default cleanImageName;

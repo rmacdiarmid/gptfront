@@ -2,26 +2,30 @@
 import React from 'react';
 import useArticles from '../../hooks/useArticles';
 import Article from '../Article/Article';
-import useCleanImageName from '../../hooks/useCleanImageName';
+import cleanImageName from '../../utils/cleanImageName';
+import logger from '../../logger';
+// ...
+
 
 const Articles = () => {
     const articles = useArticles();
     const imagePath = process.env.REACT_APP_IMAGE_PATH;
 
     const getImageUrl = (imageName) => {
-        // Log the image path and cleaned image name
-        console.log('Image path:', imagePath);
-        const cleanedImageName = useCleanImageName(imageName);
-        console.log('Cleaned image name:', cleanedImageName);
-
-        // Calculate the final image URL
-        const imageUrl = `${imagePath}${cleanedImageName}`;
-
-        // Log the final image URL
-        console.log('Final image URL:', imageUrl);
-
-        return imageUrl;
-    };
+      // Log the image path and cleaned image name
+      logger.log(`Image path: ${imagePath}`);
+      const cleanedImageName = cleanImageName(imageName);
+      logger.log(`Cleaned image name: ${cleanedImageName}`);
+  
+      // Calculate the final image URL
+      const imageUrl = `${imagePath}${cleanedImageName}`;
+  
+      // Log the final image URL
+      logger.log(`Final image URL: ${imageUrl}`);
+  
+      return imageUrl;
+  };
+  
 
     return (
         <div>
