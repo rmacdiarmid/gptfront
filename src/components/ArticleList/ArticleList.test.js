@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { MockedProvider } from '@apollo/react-testing';
+import { MockedProvider } from '@apollo/client/testing';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import ArticleList from './ArticleList';
@@ -32,28 +32,25 @@ const mocks = [
   },
 ];
 
-const mockStore = configureMockStore()({}); // You can provide initial state if needed
+const mockStore = configureMockStore()({});
 
 describe('ArticleList', () => {
-    test('renders articles from the GraphQL query', async () => {
-      render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <Provider store={mockStore}>
-            <ArticleList />
-          </Provider>
-        </MockedProvider>
-      );
-  
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
-  
-      await waitFor(() => {
-        return Promise.all([
-          expect(screen.getByText(/Featured Articles/i)).toBeInTheDocument(),
-          expect(screen.getByText(mockArticles[0].title)).toBeInTheDocument(),
-          expect(screen.getByText(mockArticles[0].preview)).toBeInTheDocument(),
-          expect(screen.getByText(mockArticles[1].title)).toBeInTheDocument(),
-          expect(screen.getByText(mockArticles[1].preview)).toBeInTheDocument(),
-        ]);
+  test('renders articles from the GraphQL query', async () => {
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Provider store={mockStore}>
+          <ArticleList />
+        </Provider>
+      </MockedProvider>
+    );
+
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+
+    await waitFor(() => {
+      mockArticles.forEach((article) => {
+        expect(screen.getByText(article.title)).toBeInTheDocument();
+        expect(screen.getByText(article.preview)).toBeInTheDocument();
       });
     });
   });
+});

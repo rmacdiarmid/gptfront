@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import './Article.css';
 
 const Article = ({ image, title, preview }) => {
@@ -21,11 +20,4 @@ Article.propTypes = {
   preview: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    title: state.articles[ownProps.id]?.title || 'Default Title'
-  };
-};
-
-
-export default connect(mapStateToProps)(Article);
+export default Article;

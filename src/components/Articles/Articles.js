@@ -17,13 +17,13 @@ const Articles = () => {
       <div>
         <h2>Articles</h2>
         <ul>
-          {articles.map((article) => (
-            <li key={article.ID}>
-            <h3>{article.Title}</h3>
-            <img src={article.Image} alt={article.Title} />
-                <p>{article.Preview}</p>
-                </li>
-          ))}
+        {articles.map((article) => (
+  <li key={article.ID}>
+    <h3>{article.Title}</h3>
+    <img src={article.Image} alt={article.Title} />
+    <p>{article.Preview}</p>
+  </li>
+))}
         </ul>
       </div>
     );

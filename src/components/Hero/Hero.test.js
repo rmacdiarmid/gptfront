@@ -7,7 +7,6 @@ import Hero from './Hero';
 import { setSearchTerm } from '../../actions/Actions';
 import '@testing-library/jest-dom/extend-expect';
 
-
 const mockStore = configureStore([]);
 
 describe('Hero', () => {
@@ -17,6 +16,7 @@ describe('Hero', () => {
     store = mockStore({
       searchTerm: '',
     });
+    store.dispatch = jest.fn();
   });
 
   test('renders search input and button', () => {
@@ -30,22 +30,21 @@ describe('Hero', () => {
     expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
   });
 
-  test('updates input value and dispatches setSearchTerm action on form submit', () => {
-    store.dispatch = jest.fn();
+  test('updates input value and dispatches setSearchTerm action on form submit', async () => {
     const searchTerm = 'Sample search term';
-
+  
     render(
       <Provider store={store}>
         <Hero />
       </Provider>
     );
-
+  
     const searchInput = screen.getByPlaceholderText('Search for articles...');
     const searchButton = screen.getByRole('button', { name: /search/i });
-
-    userEvent.type(searchInput, searchTerm);
+  
+    await userEvent.type(searchInput, searchTerm);
     expect(searchInput).toHaveValue(searchTerm);
-
+  
     fireEvent.submit(searchButton);
     expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).toHaveBeenCalledWith(setSearchTerm(searchTerm));
