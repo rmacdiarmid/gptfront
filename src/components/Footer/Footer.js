@@ -1,8 +1,10 @@
 import React from 'react';
+import logger from '../../logger';
 import './Footer.css';
 
-
 const Footer = () => {
+  logger.log('Footer component loaded.');
+
   return (
     <footer>
       <div className="container">

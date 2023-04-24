@@ -10,7 +10,6 @@ import { Provider } from 'react-redux';
 import store from '../../store';
 import logger from '../../logger';
 
-
 const App = () => {
   const [showLogs, setShowLogs] = useState(false);
 
@@ -19,7 +18,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    logger.log('Test log message');
+    logger.log('App component mounted');
+    return () => {
+      logger.log('App component unmounted');
+    };
   }, []);
 
   return (

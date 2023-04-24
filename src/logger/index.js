@@ -3,6 +3,7 @@ import client, { ADD_LOG } from '../apolloClient';
 class Logger {
   constructor() {
     this.logs = [];
+    logger.log('Logger initialized');
   }
 
   async log(message) {
@@ -10,10 +11,11 @@ class Logger {
     const logMessage = `${timestamp} - ${message}`;
   
     // Log to the console
-    console.log(logMessage);
+    logger.log(logMessage);
   
     // Save the log message to the logs array
     this.logs.push(logMessage);
+    logger.log('Log saved to the logs array');
   
     // Send the log message to the server
     try {
@@ -24,14 +26,14 @@ class Logger {
           timestamp,
         },
       });
-      console.log('Log sent to server:', response); // Add this line
+      console.log('Log sent to server:', response);
     } catch (error) {
       console.error('Error sending log to server:', error);
     }
   }
-  
 
   getLogs() {
+    logger.log('Retrieving logs');
     return this.logs;
   }
 }

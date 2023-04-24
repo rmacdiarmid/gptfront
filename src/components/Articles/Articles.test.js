@@ -1,56 +1,84 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import Articles from './Articles';
-import fetchMock from 'jest-fetch-mock';
+import { MockedProvider } from '@apollo/client/testing';
+import { gql } from '@apollo/client';
 
-fetchMock.enableMocks();
+const GET_ARTICLES = gql`
+  query GetArticles {
+    articles {
+      ID
+      Image
+      Title
+      Preview
+    }
+  }
+`;
 
 const mockArticles = [
-    {
-      ID: '1',
-      Image: 'https://example.com/sample-image-1.jpg',
-      Title: 'Sample Title 1',
-      Preview: 'Sample preview text 1...',
+  {
+    ID: '1',
+    Image: 'https://example.com/sample-image-1.jpg',
+    Title: 'Sample Title 1',
+    Preview: 'Sample preview text 1...',
+  },
+  {
+    ID: '2',
+    Image: 'https://example.com/sample-image-2.jpg',
+    Title: 'Sample Title 2',
+    Preview: 'Sample preview text 2...',
+  },
+];
+
+const mocks = [
+  {
+    request: {
+      query: GET_ARTICLES,
     },
-    {
-      ID: '2',
-      Image: 'https://example.com/sample-image-2.jpg',
-      Title: 'Sample Title 2',
-      Preview: 'Sample preview text 2...',
+    result: {
+      data: {
+        articles: mockArticles,
+      },
     },
-  ];  
+  },
+];
 
 describe('Articles', () => {
-  beforeEach(() => {
-    fetchMock.resetMocks();
-  });
-
   test('renders articles from the API', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(mockArticles));
-  
-    render(<Articles />);
-  
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
-    expect(fetch).toHaveBeenCalledWith('/api/articles');
-  
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Articles />
+      </MockedProvider>
+    );
+
     for (const article of mockArticles) {
-      const titleElement = await screen.findByText(article.Title); // Use article.Title
+      const titleElement = await screen.findByText(article.Title);
       expect(titleElement).toBeInTheDocument();
-      expect(screen.getByAltText(article.Title)).toHaveAttribute('src', article.Image); // Use article.Image
-      expect(screen.getByText(article.Preview)).toBeInTheDocument(); // Use article.Preview
+      expect(screen.getByAltText(article.Title)).toHaveAttribute('src', article.Image);
+      expect(screen.getByText(article.Preview)).toBeInTheDocument();
     }
   });
-  
 
   test('handles API errors', async () => {
-    fetchMock.mockReject(new Error('Error fetching articles'));
+    const errorMocks = [
+      {
+        request: {
+          query: GET_ARTICLES,
+        },
+        error: new Error('Error fetching articles'),
+      },
+    ];
 
     console.error = jest.fn();
 
-    render(<Articles />);
+    render(
+      <MockedProvider mocks={errorMocks} addTypename={false}>
+        <Articles />
+      </MockedProvider>
+    );
 
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
-
-    expect(console.error).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(console.error).toHaveBeenCalled();
+    });
   });
 });

@@ -1,9 +1,22 @@
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from '@apollo/client';
 import { gql } from '@apollo/client';
 
+const errorLink = new ApolloLink((operation, forward) => {
+  return forward(operation).map(response => {
+    if (response.errors) {
+      response.errors.forEach(error => {
+        console.error(`[GraphQL error]: ${error.message}`);
+      });
+    }
+    return response;
+  });
+});
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: process.env.REACT_APP_API_URL + '/graphql' }),
+  link: ApolloLink.from([
+    errorLink,
+    new HttpLink({ uri: process.env.REACT_APP_API_URL + '/graphql' }),
+  ]),
   cache: new InMemoryCache(),
 });
 
@@ -22,14 +35,13 @@ export const GET_ARTICLES = gql`
 
 export const GET_LOGS = gql`
   query GetLogs {
-    frontendLog {
+    frontendLogs {
       id
       message
       timestamp
     }
   }
 `;
-
 
 
 export const ADD_LOG = gql`

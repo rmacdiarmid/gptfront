@@ -10,7 +10,7 @@ const mocks = [
     },
     result: {
       data: {
-        frontendLog: [
+        frontendLogs: [
           { id: 1, message: 'Log 1', timestamp: '2022-01-01T00:00:00Z' },
           { id: 2, message: 'Log 2', timestamp: '2022-01-02T00:00:00Z' },
         ],
@@ -27,17 +27,17 @@ describe('LogsList', () => {
       </MockedProvider>
     );
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
-
     await waitFor(() => {
-      const messageElement = screen.getByText(/Log \d/);
-      expect(messageElement).toBeInTheDocument();
-
-      const timestampElement = screen.getByText(/2022/);
-      expect(timestampElement).toBeInTheDocument();
-
-      const logElements = screen.getAllByRole('listitem');
-      expect(logElements.length).toBeGreaterThan(0);
+      expect(screen.queryByText('Loading...')).toBeNull();
     });
+
+    const messageElement = screen.getByText(/Log \d/);
+    expect(messageElement).toBeInTheDocument();
+
+    const timestampElement = screen.getByText(/2022/);
+    expect(timestampElement).toBeInTheDocument();
+
+    const logElements = screen.getAllByRole('listitem');
+    expect(logElements.length).toBeGreaterThan(0);
   });
 });

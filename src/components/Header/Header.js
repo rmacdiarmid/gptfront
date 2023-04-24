@@ -1,13 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveNavLink } from '../../actions/Actions';
+import logger from '../../logger';
 import './Header.css';
 
 const Header = () => {
   const dispatch = useDispatch();
   const activeNavLink = useSelector((state) => state.activeNavLink);
 
+  logger.log('Header component loaded.');
+
   const handleNavLinkClick = (navLink) => {
+    logger.log(`Navigating to "${navLink}" page.`);
     dispatch(setActiveNavLink(navLink));
   };
 
@@ -47,7 +51,7 @@ const Header = () => {
         </li>
       </ul>
     </header>
-  );  
+  );
 };
 
 export default Header;
