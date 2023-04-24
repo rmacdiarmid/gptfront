@@ -12,7 +12,7 @@ const LogsList = () => {
 
   return (
     <div>
-      <h2>Logs</h2>
+      <h3>Logs</h3>
       <ul>
         {Array.isArray(data.frontendLog)
           ? data.frontendLog.map((log) => (
