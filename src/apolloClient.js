@@ -19,3 +19,42 @@ export const GET_ARTICLES = gql`
     }
   }
 `;
+
+export const GET_LOGS = gql`
+  query GetLogs {
+    frontendLog {
+      id
+      message
+      timestamp
+    }
+  }
+`;
+
+
+
+export const ADD_LOG = gql`
+  mutation AddLog($message: String!, $timestamp: String!) {
+    createFrontendLog(message: $message, timestamp: $timestamp) {
+      id
+      message
+      timestamp
+    }
+  }
+`;
+
+export const UPDATE_LOG = gql`
+  mutation UpdateLog($id: Int!, $message: String, $timestamp: String) {
+    updateFrontendLog(id: $id, message: $message, timestamp: $timestamp) {
+      id
+      message
+      timestamp
+    }
+  }
+`;
+
+export const DELETE_LOG = gql`
+  mutation DeleteLog($id: Int!) {
+    deleteFrontendLog(id: $id)
+  }
+`;
+
