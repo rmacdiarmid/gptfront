@@ -5,24 +5,17 @@ import cleanImageName from '../../utils/cleanImageName';
 import logger from '../../logger';
 
 const Articles = () => {
-  logger.log('Articles component loaded.');
-
   const articles = useArticles();
   const imagePath = process.env.REACT_APP_IMAGE_PATH;
 
   const getImageUrl = (imageName) => {
-    // Log the image path and cleaned image name
-    logger.log(`Image path: ${imagePath}`);
-    const cleanedImageName = cleanImageName(imageName);
-    logger.log(`Cleaned image name: ${cleanedImageName}`);
-
-    // Calculate the final image URL
-    const imageUrl = `${imagePath}${cleanedImageName}`;
-
-    // Log the final image URL
-    logger.log(`Final image URL: ${imageUrl}`);
-
-    return imageUrl;
+    try {
+      const cleanedImageName = cleanImageName(imageName);
+      const imageUrl = `${imagePath}${cleanedImageName}`;
+      return imageUrl;
+    } catch (error) {
+      logger.log(`Error in getImageUrl: ${error}`);
+    }
   };
 
   return (

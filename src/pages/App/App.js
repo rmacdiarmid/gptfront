@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import MainContent from '../../components/MainContent/MainContent';
@@ -8,7 +8,6 @@ import LogsList from '../../components/LogsList/LogsList';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from '../../store';
-import logger from '../../logger';
 
 const App = () => {
   const [showLogs, setShowLogs] = useState(false);
@@ -16,13 +15,6 @@ const App = () => {
   const toggleLogs = () => {
     setShowLogs(!showLogs);
   };
-
-  useEffect(() => {
-    logger.log('App component mounted');
-    return () => {
-      logger.log('App component unmounted');
-    };
-  }, []);
 
   return (
     <Provider store={store}>

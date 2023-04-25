@@ -7,7 +7,11 @@ import logger from '../../logger';
 const MainContent = ({ children }) => {
   // Use an effect to log when the component is rendered
   useEffect(() => {
-    logger.log('MainContent component rendered');
+    try {
+      logger.log('MainContent component rendered');
+    } catch (error) {
+      logger.log(`Error while logging MainContent component render: ${error}`);
+    }
   }, []);
 
   return (

@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Article.css';
-import logger from '../../logger';
 
 const Article = ({ image, title, preview }) => {
-  logger.log(`Rendering article: ${title}`);
-
   return (
     <div className="article">
       <div className="article-img-container">

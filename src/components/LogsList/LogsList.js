@@ -5,19 +5,19 @@ import logger from '../../logger';
 
 
 const LogsList = () => {
-  logger.log('LogsList: Start fetching logs'); // Log before fetching logs
+ // logger.log('LogsList: Start fetching logs'); // Log before fetching logs
   const { loading, error, data } = useQuery(GET_LOGS);
 
   if (loading) {
-    logger.log('LogsList: Loading logs');
+//    logger.log('LogsList: Loading logs');
     return <p>Loading...</p>;
   }
   if (error) {
-    logger.log(`LogsList: Error fetching logs - ${error.message}`);
+//    logger.log(`LogsList: Error fetching logs - ${error.message}`);
     return <p>Error: {error.message}</p>;
   }
 
-  logger.log('LogsList: Fetching logs successful'); // Log after successful fetching
+//  logger.log('LogsList: Fetching logs successful'); // Log after successful fetching
 
   return (
     <div>
@@ -25,7 +25,7 @@ const LogsList = () => {
       <ul>
         {Array.isArray(data.frontendLogs)
           ? data.frontendLogs.map((log) => {
-              logger.log(`LogsList: Rendering log ID ${log.id}`); // Log when rendering each log
+//              logger.log(`LogsList: Rendering log ID ${log.id}`); // Log when rendering each log
               return (
                 <li key={log.id}>
                   <p>

@@ -8,12 +8,13 @@ const Hero = () => {
   const [inputValue, setInputValue] = useState('');
   const dispatch = useDispatch();
 
-  logger.log('Hero component loaded.');
-
   const handleSearch = (e) => {
     e.preventDefault();
-    logger.log(`Searching for "${inputValue}".`);
-    dispatch(setSearchTerm(inputValue));
+    try {
+      dispatch(setSearchTerm(inputValue));
+    } catch (error) {
+      logger.log(`Error while dispatching search term "${inputValue}": ${error}`);
+    }
   };
 
   return (
@@ -26,8 +27,11 @@ const Hero = () => {
               placeholder="Search for articles..."
               value={inputValue}
               onChange={(e) => {
-                setInputValue(e.target.value);
-                logger.log(`Search input value changed to "${e.target.value}".`);
+                try {
+                  setInputValue(e.target.value);
+                } catch (error) {
+                  logger.log(`Error while updating search input value: ${error}`);
+                }
               }}
             />
             <button type="submit">Search</button>
