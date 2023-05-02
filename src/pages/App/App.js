@@ -6,8 +6,9 @@ import Hero from '../../components/Hero/Hero';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import LogsList from '../../components/LogsList/LogsList';
 import './App.css';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import store from '../../store';
+import CreateArticleForm from '../../components/CreateArticleForm/CreateArticleForm';
 
 const App = () => {
   const [showLogs, setShowLogs] = useState(false);
@@ -15,6 +16,9 @@ const App = () => {
   const toggleLogs = () => {
     setShowLogs(!showLogs);
   };
+
+  const activeNavLink = useSelector((state) => state.activeNavLink);
+
 
   return (
     <Provider store={store}>
@@ -26,6 +30,7 @@ const App = () => {
             {showLogs ? 'Hide Logs' : 'Show Logs'}
           </button>
           {showLogs && <LogsList />}
+          {activeNavLink === 'article generator' ? <CreateArticleForm /> : <ArticleList />}
           <ArticleList />
         </MainContent>
         <Footer />

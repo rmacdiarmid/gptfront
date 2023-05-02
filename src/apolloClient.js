@@ -29,8 +29,23 @@ export const GET_ARTICLES = gql`
       image
       title
       preview
+      text
     }
   }
+`;
+
+
+export const CREATE_ARTICLE = gql`
+query CreateArticle {
+  articles {
+    id
+    image
+    title
+    preview
+    text
+  }
+}
+
 `;
 
 export const GET_LOGS = gql`

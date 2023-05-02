@@ -1,0 +1,49 @@
+.create-article-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+  }
+  
+  .create-article-form h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  .create-article-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  
+  .create-article-form input[type='text'],
+  .create-article-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    resize: vertical;
+  }
+  
+  .create-article-form button[type='submit'] {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+    background-color: #FF5A5F;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .create-article-form button[type='submit']:hover {
+    background-color: #ff2a2e;
+  }
+  
