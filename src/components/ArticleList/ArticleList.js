@@ -20,12 +20,13 @@ const ArticleList = () => {
     <div className="article-container">
       <h2>Featured Articles</h2>
       <div className="articles">
-        {articles.map(({ id, image, title, preview }) => (
+        {articles.map(({ id, image, title, preview, text }) => (
           <Article
             key={id}
             image={image}
             title={title}
             preview={preview}
+            text={text}
           />
         ))}
       </div>

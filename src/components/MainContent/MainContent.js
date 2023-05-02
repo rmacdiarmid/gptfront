@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './MainContent.css';
-import Articles from '../Articles/Articles';
 import logger from '../../logger';
 
 const MainContent = ({ children }) => {
-  // Use an effect to log when the component is rendered
+  const [logs, setLogs] = useState([]);
+
+  // Use an effect to log when the component is rendered and fetch the latest logs
   useEffect(() => {
     try {
       logger.log('MainContent component rendered');
+      const latestLogs = logger.getLatestLogs();
+      // Do something with latestLogs
+      setLogs(latestLogs);
     } catch (error) {
       logger.log(`Error while logging MainContent component render: ${error}`);
     }
@@ -17,7 +21,11 @@ const MainContent = ({ children }) => {
   return (
     <div className="main-content">
       {children}
-      <Articles />
+      <div className="logs">
+        {logs.map((log, index) => (
+          <p key={index}>{log}</p>
+        ))}
+      </div>
     </div>
   );
 };

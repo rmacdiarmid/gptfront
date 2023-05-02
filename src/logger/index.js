@@ -36,7 +36,16 @@ class Logger {
     logger.log('Retrieving logs');
     return this.logs;
   }
+
+  getLatestLogs() {
+    const latestLogs = this.logs.slice(-5);
+    console.log('Retrieving the 5 most recent logs');
+    return latestLogs;
+  }
+  
 }
+
+
 
 const logger = new Logger();
 

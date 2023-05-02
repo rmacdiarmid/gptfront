@@ -1,40 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_LOGS } from '../../apolloClient';
 import logger from '../../logger';
 
-
 const LogsList = () => {
- // logger.log('LogsList: Start fetching logs'); // Log before fetching logs
   const { loading, error, data } = useQuery(GET_LOGS);
+  const [latestLogs, setLatestLogs] = useState([]);
+
+  useEffect(() => {
+    if (data && data.frontendLogs) {
+      setLatestLogs(data.frontendLogs.slice(-5));
+    }
+  }, [data]);
+
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const options = {
+      timeZone: 'America/Los_Angeles',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+    };
+    return date.toLocaleString('en-US', options);
+  };
 
   if (loading) {
-//    logger.log('LogsList: Loading logs');
     return <p>Loading...</p>;
   }
   if (error) {
-//    logger.log(`LogsList: Error fetching logs - ${error.message}`);
     return <p>Error: {error.message}</p>;
   }
 
-//  logger.log('LogsList: Fetching logs successful'); // Log after successful fetching
-
   return (
     <div>
-      <h3>Logs</h3>
+      <h3>Latest Logs</h3>
       <ul>
-        {Array.isArray(data.frontendLogs)
-          ? data.frontendLogs.map((log) => {
-//              logger.log(`LogsList: Rendering log ID ${log.id}`); // Log when rendering each log
+        {Array.isArray(latestLogs)
+          ? latestLogs.map((log) => {
               return (
                 <li key={log.id}>
                   <p>
-                    {log.timestamp} - {log.message}
+                    {formatTimestamp(log.timestamp)} - {log.message}
                   </p>
                 </li>
               );
             })
-          : logger.error('LogsList: data.frontendLogs is not an array:', data.frontendLogs)}
+          : logger.error('LogsList: latestLogs is not an array:', latestLogs)}
       </ul>
     </div>
   );

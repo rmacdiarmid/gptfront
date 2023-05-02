@@ -8,7 +8,7 @@ import FileUpload from '../../utils/fileUpload';
 const CreateArticleForm = () => {
   const [title, setTitle] = useState('');
   const [preview, setPreview] = useState('');
-  const [content, setContent] = useState('');
+  const [text, setText] = useState('');
   const [image, setImage] = useState(null);
 
   const [createArticle] = useMutation(CREATE_ARTICLE);
@@ -22,7 +22,7 @@ const CreateArticleForm = () => {
 
     try {
       const response = await createArticle({
-        variables: { title, preview, content, image },
+        variables: { title, preview, text, image },
       });
 
       console.log('Article created:', response.data.createArticle);
@@ -57,11 +57,11 @@ const CreateArticleForm = () => {
         </div>
 
         <div>
-          <label htmlFor="content">Content:</label>
+          <label htmlFor="text">Content:</label>
           <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            id="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             required
           />
         </div>

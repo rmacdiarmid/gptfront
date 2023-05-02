@@ -1,23 +1,26 @@
 import React from 'react';
 import useArticles from '../../hooks/useArticles';
 import Article from '../Article/Article';
-import cleanImageName from '../../utils/cleanImageName';
 import logger from '../../logger';
 
 const Articles = () => {
   const articles = useArticles();
-  const imagePath = process.env.REACT_APP_IMAGE_PATH;
 
-  const getImageUrl = (imageName) => {
+  const getImageUrl = async (imageName) => {
     try {
-      const cleanedImageName = cleanImageName(imageName);
-      const imageUrl = `${imagePath}${cleanedImageName}`;
+      // Fetch the IMAGE_BASE_URL from the backend
+      const imageBaseUrl = process.env.REACT_APP_API_URL + '/graphql/get-image-base-url';
+      const response = await fetch(imageBaseUrl);
+      const baseUrl = await response.text();
+  
+      const imageUrl = `${baseUrl}${imageName}`;
       return imageUrl;
     } catch (error) {
       logger.log(`Error in getImageUrl: ${error}`);
     }
   };
-
+  
+  
   return (
     <div>
       <h2>Articles</h2>
@@ -28,6 +31,7 @@ const Articles = () => {
               image={getImageUrl(article.Image)}
               title={article.Title}
               preview={article.Preview}
+              text={article.Text}
             />
           </li>
         ))}

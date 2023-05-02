@@ -31,7 +31,6 @@ const App = () => {
           </button>
           {showLogs && <LogsList />}
           {activeNavLink === 'article generator' ? <CreateArticleForm /> : <ArticleList />}
-          <ArticleList />
         </MainContent>
         <Footer />
       </>

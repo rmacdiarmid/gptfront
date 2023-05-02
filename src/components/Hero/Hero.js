@@ -7,6 +7,10 @@ import './Hero.css';
 const Hero = () => {
   const [inputValue, setInputValue] = useState('');
   const dispatch = useDispatch();
+  const heroImageUrl = process.env.REACT_APP_HERO_IMAGE_URL;
+  logger.log('Hero image URL:', heroImageUrl); // Add this line to log the URL in the console
+
+
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -18,7 +22,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="hero">
+    <section className="hero" style={{ backgroundImage: `url(${heroImageUrl})` }}>
       <div className="hero-text-container">
         <div className="search-container">
           <form className="myform" onSubmit={handleSearch}>
