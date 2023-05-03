@@ -1,23 +1,38 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useQuery } from '@apollo/client';
+import { GET_ARTICLES } from '../../apolloClient';
+import { setArticles } from '../../reducers/articlesReducer';
 import Article from '../Article/Article'; // Import the Article component
 import './ArticleList.css';
 
 const ArticleList = () => {
+  const dispatch = useDispatch(); // Add this line
   const articles = useSelector((state) => state.articles);
 
-  console.log("Articles from Redux store:", articles); // Add this console log
+  const { loading, error, data } = useQuery(GET_ARTICLES);
 
-  if (!articles) {
+  useEffect(() => {
+    console.log('GraphQL data:', data);
+    if (data) {
+      dispatch(setArticles(data.articles)); // Add this line
+    }
+  }, [data, dispatch]); // Add dispatch to dependency array
+
+  if (loading) {
     return <p>Loading articles...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
   }
 
   return (
     <div className="article-list">
       {articles.map((article) => (
-        <Article // Use the Article component
+        <Article
           key={article.id}
-          imageUrl={article.image}
+          image={article.image} // Change this line
           title={article.title}
           preview={article.preview}
           text={article.text}
