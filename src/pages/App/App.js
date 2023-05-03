@@ -24,7 +24,6 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <>
         <Header />
         <MainContent>
           <Hero imageUrl={heroImage} />
@@ -35,7 +34,6 @@ const App = () => {
           {activeNavLink === 'article generator' ? <CreateArticleForm /> : <ArticleList />}
         </MainContent>
         <Footer />
-      </>
     </Provider>
   );
 };

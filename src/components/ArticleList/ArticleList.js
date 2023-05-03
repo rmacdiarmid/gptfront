@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useQuery } from '@apollo/client';
 import { GET_ARTICLES } from '../../apolloClient';
 import { setArticles } from '../../reducers/articlesReducer';
-import Article from '../Article/Article'; // Import the Article component
+import Article from '../Article/Article';
 import './ArticleList.css';
 
-const ArticleList = () => {
-  const dispatch = useDispatch(); // Add this line
+const ArticleList = ({ onArticleImageClick }) => {
+  const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles);
 
   const { loading, error, data } = useQuery(GET_ARTICLES);
@@ -15,9 +16,9 @@ const ArticleList = () => {
   useEffect(() => {
     console.log('GraphQL data:', data);
     if (data) {
-      dispatch(setArticles(data.articles)); // Add this line
+      dispatch(setArticles(data.articles));
     }
-  }, [data, dispatch]); // Add dispatch to dependency array
+  }, [data, dispatch]);
 
   if (loading) {
     return <p>Loading articles...</p>;
@@ -32,15 +33,19 @@ const ArticleList = () => {
       {articles.map((article) => (
         <Article
           key={article.id}
-          image={article.image} // Change this line
+          image={article.image}
           title={article.title}
           preview={article.preview}
           text={article.text}
-          onImageClick={() => console.log(`Image clicked: ${article.image}`)}
+          onImageClick={() => onArticleImageClick(article.image)}
         />
       ))}
     </div>
   );
+};
+
+ArticleList.propTypes = {
+  onArticleImageClick: PropTypes.func.isRequired,
 };
 
 export default ArticleList;

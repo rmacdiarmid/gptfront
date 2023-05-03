@@ -7,7 +7,7 @@ const Article = ({ image, title, preview, text, onImageClick }) => (
       src={image}
       alt={title}
       style={{ width: '100%', cursor: 'pointer' }}
-      onClick={onImageClick}
+      onClick={() => onImageClick(image)}
     />
     <h3>{title}</h3>
     <p>{preview}</p>
@@ -16,7 +16,7 @@ const Article = ({ image, title, preview, text, onImageClick }) => (
 );
 
 Article.propTypes = {
-  image: PropTypes.string.isRequired, // Change this line
+  image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   preview: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,

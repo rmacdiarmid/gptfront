@@ -5,7 +5,7 @@ import { setSearchTerm } from '../../actions/Actions';
 import logger from '../../logger';
 import './Hero.css';
 
-const Hero = ({ imageUrl }) => {
+const Hero = ({ heroImageUrl }) => {
   const [inputValue, setInputValue] = useState('');
   const dispatch = useDispatch();
 
@@ -18,8 +18,10 @@ const Hero = ({ imageUrl }) => {
     }
   };
 
+  const backgroundImage = heroImageUrl || process.env.REACT_APP_HERO_IMAGE_URL;
+
   return (
-    <section className="hero" style={{ backgroundImage: `url(${imageUrl})` }}>
+    <section className="hero" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="hero-text-container">
         <div className="search-container">
           <form className="myform" onSubmit={handleSearch}>
@@ -44,7 +46,7 @@ const Hero = ({ imageUrl }) => {
 };
 
 Hero.propTypes = {
-  imageUrl: PropTypes.string.isRequired,
+  heroImageUrl: PropTypes.string,
 };
 
 export default Hero;

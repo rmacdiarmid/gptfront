@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateHeroImage } from '../../actions/Actions';
 import './MainContent.css';
 import logger from '../../logger';
 
 const MainContent = ({ children }) => {
-  const [logs, setLogs] = useState([]);
+  const [setLogs] = useState([]);
+  const heroImageUrl = useSelector((state) => state.heroImage);
+  const dispatch = useDispatch();
 
   // Use an effect to log when the component is rendered and fetch the latest logs
   useEffect(() => {
@@ -16,16 +20,24 @@ const MainContent = ({ children }) => {
     } catch (error) {
       logger.log(`Error while logging MainContent component render: ${error}`);
     }
-  }, []);
+  },);
 
   return (
     <div className="main-content">
-      {children}
-      <div className="logs">
-        {logs.map((log, index) => (
-          <p key={index}>{log}</p>
-        ))}
-      </div>
+      {React.Children.map(children, (child) => {
+        if (child === null) {
+          return null;
+        }
+        
+        // Check if the child component has the expected ArticleList props
+        if (child.props.heroImageUrl !== undefined && child.props.onArticleImageClick !== undefined) {
+          return React.cloneElement(child, {
+            heroImageUrl: heroImageUrl,
+            onArticleImageClick: (imageUrl) => dispatch(updateHeroImage(imageUrl)),
+          });
+        }
+        return child;
+      })}
     </div>
   );
 };
