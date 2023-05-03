@@ -32,13 +32,10 @@ const ArticleList = ({ onArticleImageClick }) => {
     <div className="article-list">
       {articles.map((article) => (
         <Article
-          key={article.id}
-          image={article.image}
-          title={article.title}
-          preview={article.preview}
-          text={article.text}
-          onImageClick={() => onArticleImageClick(article.image)}
-        />
+  key={article.id}
+  article={article}
+  onArticleImageClick={onArticleImageClick}
+/>
       ))}
     </div>
   );
