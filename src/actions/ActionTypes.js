@@ -1,0 +1,1 @@
+export const UPDATE_HERO_IMAGE = 'UPDATE_HERO_IMAGE';

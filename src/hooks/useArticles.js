@@ -6,13 +6,13 @@ const useArticles = () => {
 
     useEffect(() => {
         fetch("/api/articles")
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("Fetched articles:", data);
-                setArticles(data);
-            })
-            .catch((err) => console.error(err));
-    }, []);
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Fetched articles:", data); // Add this console log
+            setArticles(data);
+          })
+          .catch((err) => console.error(err));
+      }, []);
 
     return articles;
 };

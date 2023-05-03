@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../../actions/Actions';
 import logger from '../../logger';
 import './Hero.css';
 
-const Hero = () => {
+const Hero = ({ imageUrl }) => {
   const [inputValue, setInputValue] = useState('');
   const dispatch = useDispatch();
-  const heroImageUrl = process.env.REACT_APP_HERO_IMAGE_URL;
-  logger.log('Hero image URL:', heroImageUrl); // Add this line to log the URL in the console
-
-
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -22,7 +19,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="hero" style={{ backgroundImage: `url(${heroImageUrl})` }}>
+    <section className="hero" style={{ backgroundImage: `url(${imageUrl})` }}>
       <div className="hero-text-container">
         <div className="search-container">
           <form className="myform" onSubmit={handleSearch}>
@@ -44,6 +41,10 @@ const Hero = () => {
       </div>
     </section>
   );
+};
+
+Hero.propTypes = {
+  imageUrl: PropTypes.string.isRequired,
 };
 
 export default Hero;

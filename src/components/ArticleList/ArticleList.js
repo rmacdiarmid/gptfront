@@ -1,35 +1,29 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import Article from '../Article/Article'; // Import the Article component
 import './ArticleList.css';
-import Article from '../Article/Article';
-import { useQuery } from '@apollo/client';
-import { GET_ARTICLES } from '../../apolloClient';
-import logger from '../../logger';
 
 const ArticleList = () => {
-  const { loading, error, data } = useQuery(GET_ARTICLES);
+  const articles = useSelector((state) => state.articles);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) {
-    logger.log(`Error loading articles: ${error.message}`);
-    return <p>Error :(</p>;
+  console.log("Articles from Redux store:", articles); // Add this console log
+
+  if (!articles) {
+    return <p>Loading articles...</p>;
   }
 
-  const { articles } = data;
-
   return (
-    <div className="article-container">
-      <h2>Featured Articles</h2>
-      <div className="articles">
-        {articles.map(({ id, image, title, preview, text }) => (
-          <Article
-            key={id}
-            image={image}
-            title={title}
-            preview={preview}
-            text={text}
-          />
-        ))}
-      </div>
+    <div className="article-list">
+      {articles.map((article) => (
+        <Article // Use the Article component
+          key={article.id}
+          imageUrl={article.image}
+          title={article.title}
+          preview={article.preview}
+          text={article.text}
+          onImageClick={() => console.log(`Image clicked: ${article.image}`)}
+        />
+      ))}
     </div>
   );
 };
