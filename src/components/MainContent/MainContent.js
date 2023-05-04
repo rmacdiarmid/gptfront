@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateHeroImage } from '../../actions/Actions';
 import './MainContent.css';
 import logger from '../../logger';
+import ArticleList from '../ArticleList/ArticleList';
+import CreateArticleForm from '../CreateArticleForm/CreateArticleForm';
+import LogsList from '../LogsList/LogsList';
 
 const MainContent = ({ children }) => {
-  const [setLogs] = useState([]);
+  const [logs, setLogs] = useState([]);
   const dispatch = useDispatch();
+  const activeNavLink = useSelector((state) => state.activeNavLink);
+  const showLogs = useSelector((state) => state.showLogs);
 
-  // Use an effect to log when the component is rendered and fetch the latest logs
   useEffect(() => {
     try {
       logger.log('MainContent component rendered');
       const latestLogs = logger.getLatestLogs();
-      // Do something with latestLogs
       setLogs(latestLogs);
     } catch (error) {
       logger.log(`Error while logging MainContent component render: ${error}`);
     }
-  },);
+  }, []);
 
   const onArticleImageClick = (imageUrl) => {
     dispatch(updateHeroImage(imageUrl));
@@ -32,14 +35,14 @@ const MainContent = ({ children }) => {
           return null;
         }
 
-        // Check if the child component has the expected ArticleList props
-        if (child.props.onArticleImageClick !== undefined) {
-          return React.cloneElement(child, {
-            onArticleImageClick,
-          });
-        }
         return child;
       })}
+      {activeNavLink === 'article generator' ? (
+        <CreateArticleForm />
+      ) : (
+        <ArticleList onArticleImageClick={onArticleImageClick} />
+      )}
+      {showLogs && <LogsList logs={logs} />}
     </div>
   );
 };

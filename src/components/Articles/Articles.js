@@ -5,6 +5,7 @@ import Article from '../Article/Article';
 import { setArticles } from '../../reducers/articlesReducer';
 import { useQuery } from '@apollo/client';
 import { GET_ARTICLES } from '../../apolloClient';
+import classes from './Article.module.css';
 
 const getImageUrl = (imageName) => {
   if (imageName) {
@@ -35,9 +36,10 @@ const Articles = ({ onImageClick }) => {
   }
 
   return (
-    <div>
+    <div className={classes.articlesContainer}>
       <h2>Articles</h2>
-      <ul>
+      <div className={classes.articles}>
+      <ul className={classes.gridItem}>
         {articles.map((article) => {
           console.log('Article from Redux store:', article); // Add this line
           return (
@@ -53,6 +55,7 @@ const Articles = ({ onImageClick }) => {
           );
         })}
       </ul>
+      </div>
     </div>
   );
 };

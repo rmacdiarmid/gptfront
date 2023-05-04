@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import { GET_LOGS } from '../../apolloClient';
-import logger from '../../logger';
 
-const LogsList = () => {
+const LogsList = ({ logs }) => {
   const { loading, error, data } = useQuery(GET_LOGS);
   const [latestLogs, setLatestLogs] = useState([]);
 
   useEffect(() => {
-    if (data && data.frontendLogs) {
+    if (logs) {
+      setLatestLogs(logs.slice(-5));
+    } else if (data && data.frontendLogs) {
       setLatestLogs(data.frontendLogs.slice(-5));
     }
-  }, [data]);
+  }, [logs, data]);
 
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
@@ -48,10 +50,18 @@ const LogsList = () => {
                 </li>
               );
             })
-          : logger.error('LogsList: latestLogs is not an array:', latestLogs)}
+          : null}
       </ul>
     </div>
   );
+};
+
+LogsList.propTypes = {
+  logs: PropTypes.array,
+};
+
+LogsList.defaultProps = {
+  logs: null,
 };
 
 export default LogsList;

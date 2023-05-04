@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ARTICLES } from '../../apolloClient';
 import { setArticles } from '../../reducers/articlesReducer';
 import Article from '../Article/Article';
-import './ArticleList.css';
+import styles from './ArticleList.module.css';
 
 const ArticleList = ({ onArticleImageClick }) => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const ArticleList = ({ onArticleImageClick }) => {
   }
 
   return (
-    <div className="article-list">
+    <div className={styles.articleList}>
       {articles.map((article) => (
         <Article
   key={article.id}

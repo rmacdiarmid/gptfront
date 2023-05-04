@@ -1,0 +1,37 @@
+.button {
+  flex-grow: 1;
+  border: none;
+  height: 2rem;
+  min-width: 6rem;
+  max-width: 10rem;
+  background-color: #ff385c;
+  color: white;
+  cursor: pointer;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+      border-color 0.2s ease-in-out;
+  }
+  
+  .button:hover {
+    background-color: #008489;
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+  
+
+  .logsButton {
+    background-color: #ffffff;
+    color: #333333;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    border: 1px solid #dcdcdc;
+  }
+  
+  .logsButton:hover {
+    background-color: #f5f5f5;
+    color: #333333;
+    border-color: #cccccc;
+  }
+  
