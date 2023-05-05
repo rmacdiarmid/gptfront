@@ -6,14 +6,16 @@
   
   .articleList {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
     margin: 0 auto;
-    padding-top: 3rem;
+    padding: 2rem;
+    padding-left: 20px; /* Add padding-left */
+    padding-right: 20px; /* Add padding-right */
   }
   
-  /* .articleListGridItem {
+   .articleListGridItem {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,7 +25,7 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     background-color: #ffffff;
-  } */
+  } 
   
   @media (max-width: 1024px) {
     .articles {
