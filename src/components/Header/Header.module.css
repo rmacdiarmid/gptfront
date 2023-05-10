@@ -28,27 +28,7 @@
   height: auto;
 }
 
-/* .navbar {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-grow: 1;
-  padding: 0 40px;
-  list-style: none;
-  gap: 20px;
-}
 
-.navbar a {
-  color: #e70707;
-  margin-right: 10px;
-  padding: 10px;
-  text-decoration: none;
-}
-
-.navbar a:hover {
-  color: #008489;
-} */
-/* Remove the .hidden class */
 
 /* Update the .dropdownMenu style */
 .dropdownMenu {
@@ -89,3 +69,129 @@
 .show {
   display: flex;
 }
+
+/* Add these styles to Header.module.css */
+
+.linksContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.loginContainer {
+  margin-right: 16px;
+}
+
+.signupContainer {
+  margin-left: 16px;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+
+.loginFormOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer {
+  position: relative;
+  background-color: white;
+  padding: 32px;
+  border-radius: 8px;
+  width: 500px;
+  margin: auto;
+}
+
+.closeButton {
+  background-color: transparent;
+  border: none;
+  color: #999999;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+.formTitle {
+  margin-top: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.formSubTitle {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Add this class to style the login button */
+.loginButton {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: inherit;
+  padding: 0;
+  text-decoration: none;
+}
+
+/* Add this class for the active state of the login button */
+.active {
+  color: #007bff;
+}
+
+/* ... */
+.signupContainer {
+  margin-left: 16px;
+}
+
+.link {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Header.module.css */
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .formContainer {
+    width: 80vw;
+  }
+}
+
